@@ -8,5 +8,6 @@ namespace AsyncInn.Controllers
 {
     public class HomeController : Controller
     {
+
     }
 }
