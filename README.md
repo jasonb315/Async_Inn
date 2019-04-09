@@ -75,10 +75,9 @@ Then select and open ```WordGuessGame.sln```
 
 ------------------------------
 
-<!-- ## Visuals
+## DB Schema
 
-##### CLI
-![CLI](https://github.com/jasonb315/Lab07-Collections/blob/master/assets/cli.JPG) <br> -->
+![CLI](https://github.com/IanGifford261/AsyncInn/raw/master/Async_Inn/Async_Inn/Assets/AsyncInn.png) <br>
 
 ------------------------------
 
