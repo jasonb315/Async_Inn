@@ -1,9 +1,24 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿@{
+    ViewData["Title"] = "layout";
+}
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>!</title>
+    <title>Async Hotel</title>
     <link rel="stylesheet" href="~/style/StyleSheet.css" />
 </head>
 <body>
     <h1>THE QUICK BROWN FOX</h1>
+
+    <nav>
+        <ul>
+            <li><span class="icon-bar">@Html.ActionLink("Hotels Directory", "Index", "Hotels")</span></li>
+            <li><span class="icon-bar">@Html.ActionLink("Rooms", "Index", "Rooms")</span></li>
+            <li> <span class="icon-bar">@Html.ActionLink("Amenities", "Index", "Amenities")</span></li>
+
+        </ul>
+    </nav>
+
 </body>
 </html>
