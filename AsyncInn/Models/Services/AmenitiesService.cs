@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AsyncInn.Models.Services
 {
-    public class AmenitiesService : IAmenities
+    public class AmenetiesService : IAmenities
     {
         private AsyncInnDbContext _context;
 
-        public void AmenetiesService(AsyncInnDbContext context)
+        public void AmenetieService(AsyncInnDbContext context)
         {
             _context = context;
         }
