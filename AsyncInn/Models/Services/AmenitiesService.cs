@@ -17,7 +17,6 @@ namespace AsyncInn.Models.Services
         {
             _context = context;
         }
-
         // [C]RUD
         // Create one
         public async Task CreateAmenitie(Amenities amenities)
@@ -25,7 +24,6 @@ namespace AsyncInn.Models.Services
             _context.Add(amenities);
             await _context.SaveChangesAsync();
         }
-
         // C[R]UD
         // Check one
         public bool AmenitiesExists(int id)
@@ -49,7 +47,17 @@ namespace AsyncInn.Models.Services
         }
 
         // CR[U]D
-
-
+        public async Task UpdateAmenitie(int id, Amenities amenitie)
+        {
+            _context.Update(amenitie);
+            await _context.SaveChangesAsync();
+        }
+        // CRU[D]
+        public async Task DeleteAmenitie(int id)
+        {
+            Amenities amenitie = await _context.Amenities.FindAsync(id);
+            _context.Amenities.Remove(amenitie);
+            await _context.SaveChangesAsync();
+        }
     }
 }
