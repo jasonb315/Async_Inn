@@ -7,5 +7,6 @@ namespace AsyncInn.Models.Interfaces
 {
     public class IAmenities
     {
+        
     }
 }

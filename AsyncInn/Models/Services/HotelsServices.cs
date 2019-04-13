@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Models.Services
 {
-    public class HotelsServices
+    public class HotelsServices : IHotels
     {
     }
 }
