@@ -59,5 +59,7 @@ namespace AsyncInn.Models.Services
             _context.Amenities.Remove(amenitie);
             await _context.SaveChangesAsync();
         }
+
+        
     }
 }
