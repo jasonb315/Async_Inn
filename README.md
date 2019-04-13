@@ -83,5 +83,7 @@ Then select and open ```WordGuessGame.sln```
 
 ## Change Log
 
-1.0: 8MAR2019 Republish with README
+1.0: 8APR2019 Republish with README
+
+1.1: 13APR2019 Interface and service abstraction from controller
 
