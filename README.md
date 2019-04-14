@@ -87,3 +87,4 @@ Then select and open ```WordGuessGame.sln```
 
 1.1: 13APR2019 Interface and service abstraction from controller
 
+1.2: 14APR2019 Deployed to Azure, secrets enabled
