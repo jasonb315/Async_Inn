@@ -23,6 +23,7 @@ namespace AsyncInn
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Environment = environment;
+
             var builder = new ConfigurationBuilder().AddEnvironmentVariables();
             builder.AddUserSecrets<Startup>();
             Configuration = builder.Build();
