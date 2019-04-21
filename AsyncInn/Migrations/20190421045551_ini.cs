@@ -3,10 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AsyncInn.Migrations
 {
-    public partial class initial : Migration
+    public partial class ini : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Amenities",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Amenities", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Hotels",
                 columns: table => new
@@ -36,26 +49,6 @@ namespace AsyncInn.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rooms", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Amenities",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    RoomsID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Amenities", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Amenities_Rooms_RoomsID",
-                        column: x => x.RoomsID,
-                        principalTable: "Rooms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,10 +102,42 @@ namespace AsyncInn.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Amenities_RoomsID",
+            migrationBuilder.InsertData(
                 table: "Amenities",
-                column: "RoomsID");
+                columns: new[] { "ID", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Balcony" },
+                    { 2, "Minibar" },
+                    { 3, "Ocean View" },
+                    { 4, "Disco Ball" },
+                    { 5, "Water Bed" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Hotels",
+                columns: new[] { "ID", "City", "Name", "Phone", "State", "StreetAddress" },
+                values: new object[,]
+                {
+                    { 1, "Seattle", "Hotel Cartmon", "206-956-5555", "Washington", "123 E 8th St" },
+                    { 2, "Seattle", "Hotel Code Fellows", "206-654-5555", "Washington", "123 E 8th St" },
+                    { 3, "Seattle", "Hotel Red", "206-648-5555", "Washington", "44 S 8th St" },
+                    { 4, "Seattle", "Hotel Cartmon", "206-956-5555", "Washington", "954 W 7th St" },
+                    { 5, "Seattle", "Hotel Bebop", "360-956-1235", "Washington", "888 E 89th St" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "ID", "Layout", "Name" },
+                values: new object[,]
+                {
+                    { 1, 0, "Studio" },
+                    { 2, 1, "One Bedroom" },
+                    { 3, 2, "Two Bedroom" },
+                    { 4, 3, "Penthouse" },
+                    { 5, 4, "Queen Suite" },
+                    { 6, 5, "King Suite" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_HotelRooms_RoomsID",

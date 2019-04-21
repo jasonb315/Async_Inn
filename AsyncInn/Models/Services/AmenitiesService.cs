@@ -11,9 +11,9 @@ namespace AsyncInn.Models.Services
 {
     public class AmenetiesService : IAmenities
     {
-        private AsyncInnDbContext _context;
+        private readonly AsyncInnDbContext _context;
 
-        public void AmenetieService(AsyncInnDbContext context)
+        public AmenetiesService(AsyncInnDbContext context)
         {
             _context = context;
         }

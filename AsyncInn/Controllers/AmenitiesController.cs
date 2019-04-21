@@ -25,7 +25,6 @@ namespace AsyncInn.Controllers
         {
             List<Amenities> amens = await _amenities.GetAmenities();
             return View(amens);
-            // !
         }
 
         // GET: Amenities/Details/5
@@ -62,9 +61,9 @@ namespace AsyncInn.Controllers
             if (ModelState.IsValid)
             {
                 await _amenities.CreateAmenitie(amenities);
-                return RedirectToAction(nameof(Index));
+                return View(amenities);
             }
-            return View(amenities);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Amenities/Edit/5
