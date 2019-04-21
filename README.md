@@ -4,9 +4,7 @@
 
 ------------------------------
 
-# Async Inn
-#### *Author: Andrew Curtis*
-##### *Deployed Site: https://asyncinn20190414171354.azurewebsites.net*
+https://401dn-asyncinn-jason.azurewebsites.net/
 
 ------------------------------
 
@@ -74,3 +72,4 @@ Then select and open ```WordGuessGame.sln```
 1.2: 14APR2019 Deployed to Azure, secrets enabled
 
 2.0: 21APR2019 CRUD Services interfaced to controller.
+
