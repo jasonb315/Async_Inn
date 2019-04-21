@@ -11,8 +11,9 @@ namespace AsyncInn.Models
         public string Name { get; set; }
         public RoomLayout Layout { get; set; }
 
-        public ICollection<Amenities> Amenities { get; set; }
-        public ICollection<HotelRooms> HotelRooms { get; set; }
+        ICollection<HotelRooms> HotelRooms { get; set; }
+
+        ICollection<RoomAmenities> RoomAmenities { get; set; }
 
         public enum RoomLayout
         {

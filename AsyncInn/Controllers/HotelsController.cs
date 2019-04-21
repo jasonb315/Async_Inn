@@ -7,40 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
     public class HotelsController : Controller
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly IHotels _hotels;
 
-        public HotelsController(AsyncInnDbContext context)
+        public HotelsController(IHotels hotels)
         {
-            _context = context;
+            _hotels = hotels;
         }
 
         // GET: Hotels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Hotels.ToListAsync());
+            List<Hotels> hotels = await _hotels.GetHotels();
+            return View(hotels);
         }
 
         // GET: Hotels/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
+            if (id.GetType() != typeof(int))
             {
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (hotels == null)
-            {
-                return NotFound();
-            }
-
-            return View(hotels);
+            return View(await _hotels.GetHotel(id));
         }
 
         // GET: Hotels/Create
@@ -58,27 +53,27 @@ namespace AsyncInn.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(hotels);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _hotels.CreateHotels(hotels);
+                return View(hotels);
             }
-            return View(hotels);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Hotels/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id.GetType() != typeof(int))
             {
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels.FindAsync(id);
-            if (hotels == null)
+            var hotel = await _hotels.GetHotel(id);
+
+            if (hotel == null)
             {
                 return NotFound();
             }
-            return View(hotels);
+            return View(hotel);
         }
 
         // POST: Hotels/Edit/5
@@ -97,8 +92,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    _context.Update(hotels);
-                    await _context.SaveChangesAsync();
+                    await _hotels.UpdateHotels(id, hotels);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,21 +111,21 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Hotels/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            if (id.GetType() != typeof(int))
             {
                 return NotFound();
             }
 
-            var hotels = await _context.Hotels
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (hotels == null)
+            var hotel = await _hotels.GetHotel(id);
+
+            if (hotel == null)
             {
                 return NotFound();
             }
 
-            return View(hotels);
+            return View(hotel);
         }
 
         // POST: Hotels/Delete/5
@@ -139,15 +133,15 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hotels = await _context.Hotels.FindAsync(id);
-            _context.Hotels.Remove(hotels);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await _hotels.DeleteConfirm(id);
+            return RedirectToAction(nameof(Delete));
         }
 
         private bool HotelsExists(int id)
         {
-            return _context.Hotels.Any(e => e.ID == id);
+            var hotel = _hotels.DeleteConfirm(id);
+            if (hotel.GetType() != typeof(Hotels)) return true;
+            return false;
         }
     }
 }

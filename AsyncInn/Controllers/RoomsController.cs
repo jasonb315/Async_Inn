@@ -7,40 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly IRooms _rooms;
 
-        public RoomsController(AsyncInnDbContext context)
+        public RoomsController(IRooms rooms)
         {
-            _context = context;
+            _rooms = rooms;
         }
 
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rooms.ToListAsync());
+            List<Rooms> rooms = await _rooms.GetRooms();
+            return View(rooms);
         }
 
         // GET: Rooms/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
+            if (id.GetType() != typeof(int))
             {
                 return NotFound();
             }
 
-            var rooms = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (rooms == null)
-            {
-                return NotFound();
-            }
-
-            return View(rooms);
+            return View(await _rooms.GetRooms(id));
         }
 
         // GET: Rooms/Create
@@ -58,27 +53,27 @@ namespace AsyncInn.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rooms);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _rooms.CreateRooms(rooms);
+                return View(rooms);
             }
-            return View(rooms);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Rooms/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id.GetType() != typeof(int))
             {
                 return NotFound();
             }
 
-            var rooms = await _context.Rooms.FindAsync(id);
-            if (rooms == null)
+            var room = await _rooms.GetRooms(id);
+
+            if (room == null)
             {
                 return NotFound();
             }
-            return View(rooms);
+            return View(room);
         }
 
         // POST: Rooms/Edit/5
@@ -97,8 +92,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    _context.Update(rooms);
-                    await _context.SaveChangesAsync();
+                    await _rooms.UpdateRoom(id, rooms);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,21 +111,21 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Rooms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            if (id.GetType() != typeof(int))
             {
                 return NotFound();
             }
 
-            var rooms = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (rooms == null)
+            var room = await _rooms.GetRooms(id);
+
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return View(rooms);
+            return View(room);
         }
 
         // POST: Rooms/Delete/5
@@ -139,15 +133,15 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rooms = await _context.Rooms.FindAsync(id);
-            _context.Rooms.Remove(rooms);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await _rooms.DeleteConfirm(id);
+            return RedirectToAction(nameof(Delete));
         }
 
         private bool RoomsExists(int id)
         {
-            return _context.Rooms.Any(e => e.ID == id);
+            var room = _rooms.DeleteConfirm(id);
+            if (room.GetType() != typeof(Rooms)) return true;
+            return false;
         }
     }
 }

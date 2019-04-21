@@ -10,9 +10,9 @@ namespace AsyncInn.Models.Services
 {
     public class RoomsService : IRooms
     {
-        private AsyncInnDbContext _context;
+        private readonly AsyncInnDbContext _context;
 
-        public void RoomService(AsyncInnDbContext context)
+        public RoomsService(AsyncInnDbContext context)
         {
             _context = context;
         }
@@ -40,7 +40,7 @@ namespace AsyncInn.Models.Services
             return room;
         }
         // Read all
-        public async Task<IEnumerable<Rooms>> GetRooms()
+        public async Task<List<Rooms>> GetRooms()
         {
             return await _context.Rooms.ToListAsync();
         }
@@ -55,6 +55,13 @@ namespace AsyncInn.Models.Services
         public async Task DeleteRoom(int id)
         {
             Rooms room = await _context.Rooms.FindAsync(id);
+            _context.Rooms.Remove(room);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteConfirm(int id)
+        {
+            var room = await _context.Rooms.FindAsync(id);
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
         }

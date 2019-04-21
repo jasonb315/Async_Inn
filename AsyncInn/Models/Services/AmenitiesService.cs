@@ -11,9 +11,9 @@ namespace AsyncInn.Models.Services
 {
     public class AmenetiesService : IAmenities
     {
-        private AsyncInnDbContext _context;
+        private readonly AsyncInnDbContext _context;
 
-        public void AmenetieService(AsyncInnDbContext context)
+        public AmenetiesService(AsyncInnDbContext context)
         {
             _context = context;
         }
@@ -33,15 +33,15 @@ namespace AsyncInn.Models.Services
         // Read one
         public async Task<Amenities> GetAmenitie(int id)
         {
-            var amenities = await _context.Amenities.FindAsync(id);
-            if (amenities == null)
+            var amenitie = await _context.Amenities.FindAsync(id);
+            if (amenitie == null)
             {
                 return null;
             }
-            return amenities;
+            return amenitie;
         }
         // Read all
-        public async Task<IEnumerable<Amenities>> GetAmenities()
+        public async Task<List<Amenities>> GetAmenities()
         {
             return await _context.Amenities.ToListAsync();
         }
@@ -49,6 +49,7 @@ namespace AsyncInn.Models.Services
         // CR[U]D
         public async Task UpdateAmenitie(int id, Amenities amenitie)
         {
+
             _context.Update(amenitie);
             await _context.SaveChangesAsync();
         }
@@ -60,6 +61,13 @@ namespace AsyncInn.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        
+        public async Task DeleteConfirm(int id)
+        {
+            var amenities = await _context.Amenities.FindAsync(id);
+            _context.Amenities.Remove(amenities);
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 }
