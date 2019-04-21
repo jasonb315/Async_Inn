@@ -27,21 +27,6 @@ Deployed:
 ------------------------------
 
 ## Getting Started
-
-Clone this repository to your local machine.
-```
-$ git clone https://github.com/amjcurtis/AsyncInn.git
-```
-#### To run the program from Visual Studio:
-Select ```File``` -> ```Open``` -> ```Project/Solution```
-
-Next navigate to the location you cloned the Repository.
-
-Then select and open ```AsyncInn.sln```
-
-------------------------------
-
-## Getting Started
 Clone this repository to your local machine.
 ```
 $ git clone [repo clone url here]
