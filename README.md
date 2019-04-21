@@ -4,58 +4,42 @@
 
 ------------------------------
 
+# Async Inn
+#### *Author: Andrew Curtis*
+##### *Deployed Site: https://asyncinn20190414171354.azurewebsites.net*
+
+------------------------------
+
 ## Description
 
-Problem Domain:
+This is a full-stack ASP.NET Core MVC web application that models a hotel management system for a fictitious hotel called "Async Inn." Features include a SQL database that stores and cross-references information on the hotel's location, available rooms and amenities, etc.
 
-Your application should include the following:
+Deployed: 
 
-Startup File
+#### Technologies
 
-Explicit routing of MVC
+* Azure Deployment
+* ASP.NET Core MVC
+* Entity Framework (EF) Core
+* SQL Server
+* LINQ
+* Razor Views
+* Bootstrap
 
-MVC dependency in ConfigureServices
+------------------------------
 
-DBContext registered in ConfigureServices
+## Getting Started
 
-Use of static files accepted
+Clone this repository to your local machine.
+```
+$ git clone https://github.com/amjcurtis/AsyncInn.git
+```
+#### To run the program from Visual Studio:
+Select ```File``` -> ```Open``` -> ```Project/Solution```
 
-Controller
+Next navigate to the location you cloned the Repository.
 
-Home Controller
-
-Data
-
-DBContext present and properly configured
-
-DB Tables for each entity model (DbSet<T>)
-
-Composite key association present in OnModelCreating override.
-
-appsettings.json file present with name of database updated
-
-Models
-
-Each Entity from the DB Table converted into a Model
-
-Proper naming conventions of Primary keys
-
-Navigation properties present in each Model where required
-
-Enum present in appropriate model
-
-Views
-
-View for home page that matches default routing
-
-Home Page
-
-stylesheet present in web application
-
-stylesheet referenced on home page.
-
-Web application should build, compile, and redirect us to the home page upon launch.
-
+Then select and open ```AsyncInn.sln```
 
 ------------------------------
 
@@ -88,3 +72,5 @@ Then select and open ```WordGuessGame.sln```
 1.1: 13APR2019 Interface and service abstraction from controller
 
 1.2: 14APR2019 Deployed to Azure, secrets enabled
+
+2.0: 21APR2019 CRUD Services interfaced to controller.
